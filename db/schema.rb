@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150410164438) do
     t.integer  "sig_id",        null: false
     t.integer  "position_id",   null: false
     t.float    "score",         null: false
+    t.integer  "year",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
