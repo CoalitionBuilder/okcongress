@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410164438) do
+ActiveRecord::Schema.define(version: 20150414182836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150410164438) do
   end
 
   create_table "positions", force: :cascade do |t|
+    t.integer  "sig_id"
     t.integer  "issue_id"
     t.string   "description", null: false
     t.datetime "created_at"
@@ -42,12 +43,16 @@ ActiveRecord::Schema.define(version: 20150410164438) do
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "legislator_id", null: false
-    t.integer  "sig_id",        null: false
     t.integer  "position_id",   null: false
     t.float    "score",         null: false
     t.integer  "year",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sig_positions", force: :cascade do |t|
+    t.integer "sig_id"
+    t.integer "position_id"
   end
 
   create_table "sigs", force: :cascade do |t|
