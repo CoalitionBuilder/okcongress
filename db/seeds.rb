@@ -1,13 +1,11 @@
-require 'json'
+json = ActiveSupport::JSON.decode(File.read('db/sigs.json'))
 
+json["data"].each do |data|
+  sig = {}
 
-# seed all sigs
-  # Sig.create!
-# seed all positions
-  # sig.positions.create!
+  ["name", "description", "url"].each do |field|
+    sig[field] = data[field] ? data[field].first : "Incomplete"
+  end
 
-# for each scorecard csv:
-  # Legislator.create!
-  # iterate over sig.positions
-    # iterate over each record
-      # Rating.create!
+  Sig.create sig
+end
