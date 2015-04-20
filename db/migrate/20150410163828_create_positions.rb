@@ -1,7 +1,6 @@
 class CreatePositions < ActiveRecord::Migration
   def change
     create_table :positions do |t|
-      t.references :sig
       t.references :issue
       t.string :description, null: false
 

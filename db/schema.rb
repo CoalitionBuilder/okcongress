@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150414182836) do
   end
 
   create_table "positions", force: :cascade do |t|
-    t.integer  "sig_id"
     t.integer  "issue_id"
     t.string   "description", null: false
     t.datetime "created_at"
