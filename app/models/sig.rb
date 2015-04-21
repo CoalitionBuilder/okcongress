@@ -1,4 +1,5 @@
 class Sig < ActiveRecord::Base
+  has_many :votesmart_scorecards
   has_many :sig_positions
   has_many :positions, through: :sig_positions
 

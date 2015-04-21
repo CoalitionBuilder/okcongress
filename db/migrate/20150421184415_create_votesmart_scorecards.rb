@@ -1,6 +1,6 @@
-class CreateVotesmartScores < ActiveRecord::Migration
+class CreateVotesmartScorecards < ActiveRecord::Migration
   def change
-    create_table :votesmart_scores do |t|
+    create_table :votesmart_scorecards do |t|
       t.references :sig
       t.integer :votesmart_sig_id
       t.integer :year
