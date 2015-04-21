@@ -1,6 +1,6 @@
-json = ActiveSupport::JSON.decode(File.read('db/sigs.json'))
+sig_json = ActiveSupport::JSON.decode(File.read('db/sigs.json'))
 
-json["data"].each do |data|
+sig_json["data"].each do |data|
   sig = {}
 
   ["name", "description", "url"].each do |field|
