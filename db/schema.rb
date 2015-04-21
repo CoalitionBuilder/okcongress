@@ -55,9 +55,10 @@ ActiveRecord::Schema.define(version: 20150414182836) do
   end
 
   create_table "sigs", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "url",         null: false
-    t.string   "description", null: false
+    t.string   "name",         null: false
+    t.string   "url",          null: false
+    t.string   "description",  null: false
+    t.integer  "votesmart_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

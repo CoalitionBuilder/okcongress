@@ -7,6 +7,7 @@ json["data"].each do |data|
     sig[field] = data[field] ? data[field].first : "Incomplete"
   end
 
+  sig["votesmart_id"] = /(?<=interest-group\/)\d+(?=\/)/.match(data["_pageUrl"])[0].to_i
   Sig.create!(sig)
 end
 
