@@ -24,11 +24,12 @@ ActiveRecord::Schema.define(version: 20150421184415) do
 
   create_table "legislators", force: :cascade do |t|
     t.string   "name",          null: false
-    t.string   "office",        null: false
-    t.string   "state",         null: false
-    t.string   "party",         null: false
-    t.string   "votesmart_url", null: false
-    t.string   "img_url",       null: false
+    t.string   "office"
+    t.string   "state"
+    t.string   "district"
+    t.string   "party"
+    t.string   "votesmart_url"
+    t.string   "img_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150421184415) do
     t.integer "year"
     t.string  "votesmart_issues"
     t.integer "pages"
+    t.string  "votesmart_url"
   end
 
 end

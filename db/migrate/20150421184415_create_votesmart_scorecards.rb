@@ -6,6 +6,7 @@ class CreateVotesmartScorecards < ActiveRecord::Migration
       t.integer :year
       t.string :votesmart_issues
       t.integer :pages
+      t.string :votesmart_url
     end
   end
 end
