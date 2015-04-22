@@ -4,6 +4,7 @@ class CreateSigs < ActiveRecord::Migration
       t.string :name, null: false
       t.string :url, null: false
       t.string :description, null: false
+      t.integer :votesmart_id, null: false
 
       t.timestamps
     end

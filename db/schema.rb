@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414182836) do
+ActiveRecord::Schema.define(version: 20150421184415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,17 +24,17 @@ ActiveRecord::Schema.define(version: 20150414182836) do
 
   create_table "legislators", force: :cascade do |t|
     t.string   "name",          null: false
-    t.string   "office",        null: false
-    t.string   "state",         null: false
-    t.string   "party",         null: false
-    t.string   "votesmart_url", null: false
-    t.string   "img_url",       null: false
+    t.string   "office"
+    t.string   "state"
+    t.string   "district"
+    t.string   "party"
+    t.string   "votesmart_url"
+    t.string   "img_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "positions", force: :cascade do |t|
-    t.integer  "sig_id"
     t.integer  "issue_id"
     t.string   "description", null: false
     t.datetime "created_at"
@@ -56,11 +56,21 @@ ActiveRecord::Schema.define(version: 20150414182836) do
   end
 
   create_table "sigs", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "url",         null: false
-    t.string   "description", null: false
+    t.string   "name",         null: false
+    t.string   "url",          null: false
+    t.string   "description",  null: false
+    t.integer  "votesmart_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "votesmart_scorecards", force: :cascade do |t|
+    t.integer "sig_id"
+    t.integer "votesmart_sig_id"
+    t.integer "year"
+    t.string  "votesmart_issues"
+    t.integer "pages"
+    t.string  "votesmart_url"
   end
 
 end
