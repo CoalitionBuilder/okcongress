@@ -1,3 +1,8 @@
+require 'csv'
+require 'nokogiri'
+require 'open-uri'
+
+p "Seeding sigs"
 sig_json = ActiveSupport::JSON.decode(File.read('db/sigs.json'))
 
 sig_json["data"].each do |data|
@@ -11,7 +16,7 @@ sig_json["data"].each do |data|
   Sig.create!(sig)
 end
 
-
+p "Seeding votesmart scorecards"
 votesmart_scorecard_json = ActiveSupport::JSON.decode(File.read('db/scorecards.json'))
 
 votesmart_scorecard_json["data"].each do |data|
@@ -29,19 +34,19 @@ votesmart_scorecard_json["data"].each do |data|
 
   scorecard["pages"] = data["pages"] ? /\d/.match(data["pages"][0])[-1].to_i : 1
 
+  scorecard["votesmart_url"] = data["_pageUrl"]
+
   VotesmartScorecard.create!(scorecard)
 end
 
-
-require 'csv'
-
+p "Seeding issues/positions"
 issues = ActiveSupport::JSON.decode(CSV.parse(File.read("db/issues.csv")).to_json)
 
 issues.each do |issue|
   Issue.create!(description: issue[0])
 end
 
-# manually seed positions/sigpositions and associate them with some sigs for now, later will need to use labor to create positions/sigpositions for all relevant sigs in db
+# Seed positions/sig_positions manually for now, later will need to use labor
 pro_choice = Position.create!(issue_id: 1, description: "Pro-choice")
 pro_life = Position.create!(issue_id: 1, description: "Pro-life")
 
@@ -57,4 +62,31 @@ end
 pro_choice_entities.each do |pce|
   sig = Sig.find_by(name: pce)
   SigPosition.create!(sig_id: sig.id, position_id: pro_choice.id)
+end
+
+p "Seeding legislators/ratings"
+
+year_threshold = 2014
+scorecards_to_seed = VotesmartScorecard.where("year >= ?", year_threshold)
+p "Seeding #{scorecards_to_seed.count} scorecards"
+counter = 1
+scorecards_to_seed.each do |scorecard|
+  p "#{counter} of #{scorecards_to_seed.count}"
+  page = Nokogiri::HTML(open(scorecard.votesmart_url))
+  sig = Sig.find_by(name: page.css('h3 a').text)
+  rows = page.css('tr')[1..-1]
+  rows.each do |row|
+    legislator = Legislator.find_or_create_by(
+      name: row.children[7].text,
+      office: row.children[3].text,
+      state: row.children[1].text,
+      district: row.children[5].text,
+      party: row.children[9].text,
+      votesmart_url: row.children[7].css('a')[0] ? row.children[7].css('a')[0]['href'] : "Unavailable"
+      )
+    sig.positions.each do |position|
+      position.ratings.create!(legislator_id: legislator.id, score: row.children[11].text.to_i, year: year_threshold)
+    end
+  end
+  counter += 1
 end
