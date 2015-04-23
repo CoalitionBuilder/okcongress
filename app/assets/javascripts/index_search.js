@@ -34,6 +34,25 @@ var initializeSearch = function() {
     })
     setTypeAhead(issueNames);
   })
+
+  var populatePositions = function(issue) {
+    $.ajax({
+      type: "GET",
+      url: "/positions",
+      data: {issue: issue}
+    }).done(function(positions) {
+      $("#position-container").empty();
+      positions.forEach(function(position) {
+        var positionString = "<p class='position-description'>" + position.description + "</p>";
+        $("#position-container").append(positionString)
+      })
+    })
+  }
+
+  $('.typeahead').bind('typeahead:selected', function() {
+    var input = $(".tt-cursor").text()
+    populatePositions(input);
+  });
 }
 
 $(document).ready(function() {
