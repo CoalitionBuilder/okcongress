@@ -85,7 +85,7 @@ scorecards_to_seed.each do |scorecard|
       votesmart_url: row.children[7].css('a')[0] ? row.children[7].css('a')[0]['href'] : "Unavailable"
       )
     sig.positions.each do |position|
-      position.ratings.create!(legislator_id: legislator.id, score: row.children[11].text.to_i, year: year_threshold)
+      position.ratings.create!(legislator_id: legislator.id, score: row.children[11].text.to_i, year: year_threshold) # TODO: fix this to identify a given scorecard's year
     end
   end
   counter += 1
