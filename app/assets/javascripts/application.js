@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require typeahead
 //= require turbolinks
 //= require_tree .
 
