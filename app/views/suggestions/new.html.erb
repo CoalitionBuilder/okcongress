@@ -1,0 +1,33 @@
+<%= form_for @suggestion do |form| %>
+  <div class="row">
+    <%= field_set_tag 'Suggestion Form', class: "text-center" do %>
+
+    <div class="small-12 large-6 columns">
+      <div class="small-3 medium-2 columns">
+        <%= form.label :sig, class: "left inline" %>
+      </div>
+      <div class="small-9 medium-10 columns">
+        <%= form.collection_select :sig_id, @sigs, :id, :name %>
+      </div>
+    </div>
+
+    <div class="small-12 large-6 columns">
+      <div class="small-3 medium-2 column">
+        <%= form.label :position, class: "left inline" %>
+      </div>
+
+      <div class="small-9 medium-10 columns">
+        <%= form.text_field :position %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <%= form.label :reasoning, class: "text-center suggestion-form-label" %>
+      <%= form.text_area :reasoning,
+        placeholder: "In 500 words or less, let us know why you think the selected Special Interest Group supports this position."
+      %>
+    </div>
+      <%= form.submit "Submit Suggestion", class: "button radius" %>
+    <% end %>
+  </div>
+<% end %>
