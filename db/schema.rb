@@ -24,17 +24,17 @@ ActiveRecord::Schema.define(version: 20150424203008) do
 
   create_table "legislators", force: :cascade do |t|
     t.string   "name",          null: false
-    t.string   "office",        null: false
-    t.string   "state",         null: false
-    t.string   "party",         null: false
-    t.string   "votesmart_url", null: false
-    t.string   "img_url",       null: false
+    t.string   "office"
+    t.string   "state"
+    t.string   "district"
+    t.string   "party"
+    t.string   "votesmart_url"
+    t.string   "img_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "positions", force: :cascade do |t|
-    t.integer  "sig_id"
     t.integer  "issue_id"
     t.string   "description", null: false
     t.datetime "created_at"
@@ -56,9 +56,10 @@ ActiveRecord::Schema.define(version: 20150424203008) do
   end
 
   create_table "sigs", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "url",         null: false
-    t.string   "description", null: false
+    t.string   "name",         null: false
+    t.string   "url",          null: false
+    t.string   "description",  null: false
+    t.integer  "votesmart_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
