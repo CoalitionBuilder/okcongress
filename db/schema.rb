@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421184415) do
+ActiveRecord::Schema.define(version: 20150424203008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 20150421184415) do
     t.integer  "votesmart_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "suggestions", force: :cascade do |t|
+    t.integer  "sig_id"
+    t.string   "position",   limit: 200, null: false
+    t.text     "reasoning",              null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "votesmart_scorecards", force: :cascade do |t|
