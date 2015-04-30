@@ -27,6 +27,9 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+router.get('/apples', function(req, res) {
+    res.json({ message: 'apples!' });   
+});
 
 app.use('/api', router);
 
