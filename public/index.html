@@ -26,9 +26,11 @@
 <body ng-app="sampleApp" ng-controller="MainController">
 	<div layout="column" ng-model="cats" ng-init="cats=124">
 
-		<md-toolbar layout="row" class="md-primary">
-	      <h1 class="md-toolbar-tools" layout-align-gt-sm="center">OKCongress</h1>
-	    </md-toolbar>
+		<div layout="row">
+			<md-toolbar class="md-primary">
+		      <h1 class="md-toolbar-tools" layout-align-gt-sm="center">OKCongress</h1>
+		    </md-toolbar>
+		</div>
 		
 		<!-- ANGULAR DYNAMIC CONTENT -->
 		<div ng-view></div>
