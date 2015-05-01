@@ -74,6 +74,9 @@
               <label for="party_republican"><input type="radio" ng-model="partyText" value="R" >Republican</label>
               
               <hr />
+              <label for="offical_name"><input type="radio" ng-model="billName" value="true" ng-init="billName='true'">All</label><br />
+              <label for="short_name"><input type="radio" ng-model="billName" value="false" >House of Representatives</label><br />
+              <hr />
               
             	<select ng-model="commissionsText">
             	 	<option value="" >select a committee</option> 
@@ -115,8 +118,9 @@
 
               <div class="secondary">
                 <h3>Bills Sponsored</h3>
-                <ul>
-                  <li ng-repeat="b in p.billsLong track by $index">{{b}}</li>
+                <ul >
+                  <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}</li>
+                  <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index">{{b}}</li>
                 </ul>
               </div>
               
