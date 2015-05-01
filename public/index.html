@@ -59,7 +59,7 @@
       <div class="large-12 medium-12 columns row">
         <h2>Congress members who <em>sponsored</em> bills related to your search.</h2>
         <!-- Grid Example -->
-          <div class="large-4 medium-4 columns" ng-if="people.length > 0">
+          <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
             <div class="callout panel">
               <p>Filter your results</p>
           <div class="row" >
@@ -73,13 +73,14 @@
               <input type="radio" ng-model="chamberText" value="Rep" ><label for="chamber_house">House of Representatives</label><br />
               <input type="radio" ng-model="chamberText" value="Sen" ><label for="chamber_sen">Senate</label>
               <hr />
-              <select>
-                <option value="all">Select a committee</option>
-                <option value="Committee 1">Committee 1</option>
-                <option value="Committee 2">Committee 2</option>
-                <option value="Committee 3">Committee 3</option>
-                <option value="Committee 4">Committee 4</option>
-              </select>
+            	<select ng-model="commissionsText">
+            		<!-- <option ng-model="filterText" value="" >[--select--]</option> -->
+			    <option 
+			            ng-repeat="commission in commissions"
+			            value="{{commission.display}}">
+			      {{commission.display}}
+			    </option>
+			</select>
               <hr />
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
             </div>
@@ -88,7 +89,7 @@
             </div>
           </div>
           <div class="large-8 medium-8 columns" >
-            <div class="person" ng-repeat="p in people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText}">
+            <div class="person" ng-repeat="p in people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText} | filter:commissionsText">
               <div class="primary">
                 <div class="name"> 
                   <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />

@@ -10,6 +10,8 @@ cb.controller('MainController', function($scope, $http) {
 	$scope.tagline = 'To the moon and back!';	
 	$scope.result = '';
 	$scope.people = [];
+	
+	$scope.commissions = [];
 
 	$scope.keydown = function(e){
 		console.log("keydown?");
@@ -28,6 +30,12 @@ cb.controller('MainController', function($scope, $http) {
 			  	console.log($scope.result);
 			  	$scope.people = $scope.result.people;
 			  	$scope.querying = false;
+			  	$scope.people.forEach(function(p){
+			  		p.committeeMembership.forEach(function(c){
+			  			console.log(c)
+			  			$scope.commissions.push({'display':c, 'valueText':c});
+			  		});
+			  	});
 			  })
 			.error(function(data, status, headers, config) {
 			  	console.log('error');
