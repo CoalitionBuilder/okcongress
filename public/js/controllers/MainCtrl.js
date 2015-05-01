@@ -1,4 +1,4 @@
-var cb = angular.module('cb', []); 
+var cb = angular.module('cb', ['ngCsv']); 
 
 
 cb.controller('MainController', function($scope, $http) {
@@ -17,6 +17,29 @@ cb.controller('MainController', function($scope, $http) {
 			$scope.search();
 		}
 	};
+
+
+	$scope.getHeader = function(){
+		return Object.keys($scope.flatpeople[0])
+	}
+
+	$scope.getFlats = function(){
+		$scope.flatpeople = []
+		$scope.people.forEach(function(d){
+			var peep = {
+				lastname : d['lastname'],
+				firstname : d['firstname'],
+				website 	: d['website'],
+				party		: d['party'],
+				state		: d['state'],
+				title		: d['title']
+			}
+			$scope.flatpeople.push(peep)
+		})
+		return $scope.flatpeople
+	}
+
+
 
 	$scope.search = function(){
 		if(false ===$scope.querying ){

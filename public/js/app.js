@@ -1,5 +1,5 @@
 angular
-	.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'ngMaterial'])
+	.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'ngMaterial', 'ngCsv'])
 	.config(function($mdThemingProvider) {
 	  // Extend the red theme with a few different colors
 	  var neonRedMap = $mdThemingProvider.extendPalette('red', {
