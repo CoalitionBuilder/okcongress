@@ -1,4 +1,4 @@
-<div layout="column" flex='33'>
+<div layout="column" flex='33' layout-fill>
 
 </div>
 <div layout="column" flex='33' layout-fill>
@@ -12,12 +12,12 @@
 	<div layout="row">
 		<md-card>
 			<md-card-content>
-				<p ng-repeat="person in peopleDta">{{person}}</p>
+				<p ng-repeat="person in people">{{person.name}}</p>
 			</md-card-content>
 		</md-card>
 	</div>
 </div>
-<div layout="column" flex='33'>
+<div layout="column" flex='33' layout-fill>
 
 </div>
 
