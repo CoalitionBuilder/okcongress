@@ -1,20 +1,32 @@
-# MEAN Stack Single Page Application Starter
+#[CoalitionBuilder](www.coalition-builder.com)
 
-This is a repo for a starter appliation for a Single Page MEAN Stack application. Just download and install and you have a good foundation for building application. 
+www.coalition-builder.com
 
-## Installation
-1. Download the repository
-2. Install npm modules: `npm install`
-3. Install bower dependencies `bower install`
-4. Start up the server: `node server.js`
-5. View in browser at http://localhost:8080
+With 535 Members of Congress, Congressional staffers struggle to identify federal elected officials to collaborate with on legislative priorities.
+They waste countless hours conducting searches, checking multiple sources, and maintaining excel lists to find the right Members to reach out to. Additionally, existing solutions are expensive, costing up to $6,000 a year per account.
+CoalitionBuilder is creating an easy to use platform that aggregates necessary information, such as voting records, co-sponsorships, and committee assignments to produce a list of members who are active on the issue - streamlining the vetting process.
 
-Use this starter kit to build any MEAN stack application you like.
+Team Members:
+- Rebecca Bernbach (rebeccabernbach@gmail.com)
 
-If you have any questions or requests, email us at [chris@scotch.io](mailto:chris@scotch.io) and we'll keep updating this to make it perfect.
+- Dan Carson (dan@okdan.com)
 
-## Future Additions
-- CRUD examples
-- Development and Production Environments
-- Link examples
-- Single Page AngularJS Animations
+- Shane Feely (shafeel@microsoft.com)
+
+- Alex Lyte (alexanderlyte@gmail.com)
+
+- Melissa Medina (melissa.a.medina@gmail.com)
+
+- Stavan Patel (pstavan12@gmail.com)
+
+- Don Kahn  (donjkahn@gmail.com)
+
+- Matt Rumsey (Matt.Rumsey@gmail.com)
+
+- Ben Schmoker (ben@foxlight.co)
+
+- Catherine Smith csmithk@gmail.com
+
+- Eric Thomas (e01010100@gmail.com)
+
+- Tobias Wernet (tobiwer@microsoft.com)
