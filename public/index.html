@@ -65,18 +65,16 @@
               <p>Filter your results</p>
           <div class="row" >
             <div class="large-12 medium-12 columns">
-            	<label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''">All</label><br />
-              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" >House of Representatives</label><br />
-              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
+            	<label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''"> All</label><br />
+              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" > House of Representatives</label><br />
+              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" > Senate</label>
               <hr />
               <label for="party_all"><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label><br />
-              <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" >Democrat</label><br />
-              <label for="party_republican"><input type="radio" ng-model="partyText" value="R" >Republican</label>
+              <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" > Democrat</label><br />
+              <label for="party_republican"><input type="radio" ng-model="partyText" value="R" > Republican</label>
               
               <hr />
-              <label for="offical_name"><input type="radio" ng-model="billName" value="true" ng-init="billName='true'">All</label><br />
-              <label for="short_name"><input type="radio" ng-model="billName" value="false" >House of Representatives</label><br />
-              <hr />
+              
               
             	<select ng-model="commissionsText">
             	 	<option value="" >select a committee</option> 
@@ -89,6 +87,11 @@
               <hr />
               <p>Keyword Search</p>
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
+              <hr />
+              <p>Choose Bill Display Preference</p>
+              <label for="offical_name"><input type="radio" ng-model="billName" value="true" ng-init="billName='true'"> Official Bill Name</label><br />
+              <label for="short_name"><input type="radio" ng-model="billName" value="false" > Short Name</label><br />
+              
             </div>
           </div>
 
