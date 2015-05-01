@@ -147,7 +147,7 @@ var sunlight = function(req, res, page){
 					} 
 				})
 			})
-			if((page*50 || page > 100)> returned.count){
+			if((page*50 > returned.count|| page > 30) ){
 				// return the enriched list of legislators
 			    res.json(retobj);
 			    res.end(); // exit
