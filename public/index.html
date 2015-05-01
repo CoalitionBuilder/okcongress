@@ -91,10 +91,11 @@
               <div class="primary">
                 <div class="name">
                   <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />
-                  <a href="#">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
+                  <a ng-href="{{p.website}}">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
                 </div>
                 <div class="details">
-                  {{p.title}} - {{p.party}}, {{p.state}}
+                  {{p.title}} - {{p.party}}, {{p.state}} </br>
+                  {{p.phone}}
                 </div>
               </div>
 
@@ -107,13 +108,6 @@
                 </ul>
               </div>
 
-              <div class="secondary">
-                <h3>Contact information</h3>
-                <ul>
-                  <li><a href="mailto:">{{p.oc_email}}</a></li>
-                  <li>{{p.phone}}</li>
-                </ul>
-              </div>
               <div class="secondary">
                 <h3>Bills Supported</h3>
                 <ul>
