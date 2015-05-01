@@ -1,8 +1,25 @@
-<div layout="row">
-	<md-card>
-		<md-card-content>
-			<input ng-model="search">
-			<p>{{search}}</p>
-		</md-card-content>
-	</md-card>
+<div layout="column" flex='33'>
+
 </div>
+<div layout="column" flex='33' layout-fill>
+	<div layout="row">
+		<md-card>
+			<md-card-content>
+				<input ng-model="query" ng-keydown="keydown($event)">
+			</md-card-content>
+		</md-card>
+	</div>
+	<div layout="row">
+		<md-card>
+			<md-card-content>
+				<p>{{query}}</p>
+			</md-card-content>
+		</md-card>
+	</div>
+</div>
+<div layout="column" flex='33'>
+
+</div>
+
+
+
