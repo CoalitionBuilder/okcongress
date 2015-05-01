@@ -33,6 +33,7 @@
 <div class="row">
       <div class="large-12 columns">
         <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
+        <h2 style="text-align:center">Search for a topic, policy or interest</h2>
       </div>
     </div>
     
@@ -57,24 +58,25 @@
 
     <div class="row">
       <div class="large-12 medium-12 columns">
-        <h2>Congress members who <em>sponsored</em> bills related to your search.</h2>
+        <h2><span ng-hide="people.length < 1">{{people.length}}</span> Congress members who <em>sponsored</em> {{result.bills}} bills related to your search.</h2>
         <!-- Grid Example -->
           <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
             <div class="callout panel">
               <p>Filter your results</p>
           <div class="row" >
             <div class="large-12 medium-12 columns">
+            	<label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''">All</label><br />
+              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" >House of Representatives</label><br />
+              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
+              <hr />
               <label for="party_all"><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label><br />
               <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" >Democrat</label><br />
               <label for="party_republican"><input type="radio" ng-model="partyText" value="R" >Republican</label>
               
               <hr />
-              <label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''">All</label><br />
-              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" >House of Representatives</label><br />
-              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
-              <hr />
+              
             	<select ng-model="commissionsText">
-            	 	<option value="" >[--select--]</option> 
+            	 	<option value="" >select a committee</option> 
 				    <option 
 				            ng-repeat="commission in commissions"
 				            value="{{commission.display}}">
@@ -82,6 +84,7 @@
 				    </option>
 			</select>
               <hr />
+              <p>Keyword Search</p>
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
             </div>
           </div>
@@ -111,7 +114,7 @@
               </div>
 
               <div class="secondary">
-                <h3>Bills Supported</h3>
+                <h3>Bills Sponsored</h3>
                 <ul>
                   <li ng-repeat="b in p.billsLong track by $index">{{b}}</li>
                 </ul>
