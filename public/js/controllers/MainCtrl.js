@@ -43,6 +43,7 @@ cb.controller('MainController', function($scope, $http) {
 			  	$scope.querying = false;
 			  });
 		}
+
 	};
 
   	$scope.people = [];

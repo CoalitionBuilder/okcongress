@@ -64,14 +64,14 @@
               <p>Filter your results</p>
           <div class="row" >
             <div class="large-12 medium-12 columns">
-              <input type="radio" ng-model="partyText"  value="" ng-init="partyText=''"><label for="party_all">All</label><br />
-              <input type="radio" ng-model="partyText" value="D" ><label for="party_democrat">Democrat</label><br />
-              <input type="radio" ng-model="partyText" value="R" ><label for="party_republican">Republican</label>
+              <label for="party_all"><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label><br />
+              <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" >Democrat</label><br />
+              <label for="party_republican"><input type="radio" ng-model="partyText" value="R" >Republican</label>
               
               <hr />
-              <input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''"><label for="chamber_all">All</label><br />
-              <input type="radio" ng-model="chamberText" value="Rep" ><label for="chamber_house">House of Representatives</label><br />
-              <input type="radio" ng-model="chamberText" value="Sen" ><label for="chamber_sen">Senate</label>
+              <label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''">All</label><br />
+              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" >House of Representatives</label><br />
+              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
               <hr />
             	<select ng-model="commissionsText">
             		<!-- <option ng-model="filterText" value="" >[--select--]</option> -->
@@ -93,10 +93,11 @@
               <div class="primary">
                 <div class="name"> 
                   <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />
-                  <a href="#">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
+                  <a ng-href="{{p.website}}">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
                 </div>
                 <div class="details">
-                  {{p.title}} - {{p.party}}, {{p.state}}
+                  {{p.title}} - {{p.party}}, {{p.state}} </br>
+                  {{p.phone}}
                 </div>
               </div>
 
@@ -110,13 +111,6 @@
               </div>
 
               <div class="secondary">
-                <h3>Contact information</h3>
-                <ul>
-                  <li><a href="mailto:">{{p.oc_email}}</a></li>
-                  <li>{{p.phone}}</li>
-                </ul>
-              </div>
-              <div class="secondary">
                 <h3>Bills Supported</h3>
                 <ul>
                   <li ng-repeat="b in p.billsLong track by $index">{{b}}</li>
@@ -125,7 +119,6 @@
               
               <div style="clear: both;"></div>
             </div>
-
           </div>
       </div>
     </div>

@@ -9,17 +9,23 @@
 			</md-card-content>
 		</md-card>
 	</div>
-	<div layout="row">
-		<md-card>
+	<div layout="column" flex='20' layout-fill>
+		<div layout="row" flex='20' layout-fill>
+			<md-card ng-if="result!==''">
+				<md-card-content>
+				</md-card-content>
+			</md-card>
+		</div>
+
+		<md-card layout="row" flex="80"  ng-if="result!==''" >
 			<md-card-content>
-				<p ng-repeat="person in people">{{person.name}}</p>
+				<div>
+					<md-checkbox ng-repeat="item in items" ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+				    	{{ item }}
+				    </md-checkbox>				
+				</div>
 			</md-card-content>
 		</md-card>
+
 	</div>
 </div>
-<div layout="column" flex='33' layout-fill>
-
-</div>
-
-
-
