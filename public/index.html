@@ -1,12 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 <head>
 	<meta charset="UTF-8">
 	<base href="/">
-
-	<title>OKCongress</title>
-
-	<!-- CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coalition Builder</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css"> <!-- custom styles -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -17,24 +20,109 @@
 	<script src="bower_components/angular-aria/angular-aria.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-material/angular-material.js"></script>
-
+	<script src="js/vendor/modernizr.js"></script>
+	<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    
 	<!-- ANGULAR CUSTOM -->
 	<script src="js/controllers/MainCtrl.js"></script>
 	<script src="js/appRoutes.js"></script>
 	<script src="js/app.js"></script>
 </head>
-<body ng-app="sampleApp" ng-controller="MainController">
-	<div layout="column" ng-model="cats" ng-init="cats=124">
+<body ng-app="cb" ng-controller="MainController">
+<div class="row">
+      <div class="large-12 columns">
+        <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <form>
+          <div class="row">
+            <div class="large-10 columns">
+              <input  type="text" placeholder="Enter your topic" ng-model="query"/>
+            </div>
+            <div class="large-2 columns">
+              <button ng-click="search()" class="small round button">Search</button>
+            </div>
+          </div>
+        </form>
+	    	</div>
+					</div>
+      	</div>
+      </div>
+    </div>
 
-		<div layout="row">
-			<md-toolbar class="md-primary">
-		      <h1 class="md-toolbar-tools" layout-align-gt-sm="center">OKCongress</h1>
-		    </md-toolbar>
-		</div>
-		
-		<!-- ANGULAR DYNAMIC CONTENT -->
-		<div ng-view></div>
+    <div class="row">
+      <div class="large-12 medium-12 columns row">
+        <h2>Congress members who <em>sponsored</em> bills related to your search.</h2>
+        <!-- Grid Example -->
+          <div class="large-4 medium-4 columns">
+            <div class="callout panel">
+              <p>Filter your results</p>
+          <div class="row">
+            <div class="large-12 medium-12 columns">
+              <input id="checkbox1" type="checkbox" checked><label for="checkbox1">Democrat</label><br />
+              <input id="checkbox2" type="checkbox" checked><label for="checkbox2">Republican</label><br />
+              <input id="checkbox3" type="checkbox" checked><label for="checkbox3">Independent</label>
+              <hr />
+              <input id="checkbox4" type="checkbox" checked><label for="checkbox4">House of Representatives</label><br />
+              <input id="checkbox5" type="checkbox" checked><label for="checkbox5">Senate</label>
+              <hr />
+              <select>
+                <option value="all">Select a committee</option>
+                <option value="Committee 1">Committee 1</option>
+                <option value="Committee 2">Committee 2</option>
+                <option value="Committee 3">Committee 3</option>
+                <option value="Committee 4">Committee 4</option>
+              </select>
+            </div>
+          </div>
 
-	</div>
+            </div>
+          </div>
+          <div class="large-8 medium-8 columns" >
+            <div class="person" ng-repeat="p in people">
+              <div class="primary">
+                <div class="name">
+                  <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />
+                  <a href="#">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
+                </div>
+                <div class="details">
+                  {{p.title}} - {{p.party}}, {{p.state}}
+                </div>
+              </div>
+
+              <hr class="person-divider" />
+
+              <div class="secondary">
+                <h3>Committees</h3>
+                <ul>
+                  <li ng-repeat="c in p.committeeMembership">{{c}}</li>
+                </ul>
+              </div>
+
+              <div class="secondary">
+                <h3>Contact information</h3>
+                <ul>
+                  <li><a href="mailto:">{{p.oc_email}}</a></li>
+                  <li>{{p.phone}}</li>
+                </ul>
+              </div>
+              <div class="secondary">
+                <h3>Bills Supported</h3>
+                <ul>
+                  <li ng-repeat="b in p.billsLong track by $index">{{b}}</li>
+                </ul>
+              </div>
+              
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+      </div>
+    </div>
+	
 </body>
 </html>
