@@ -17,13 +17,13 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$http', 
 
   	$scope.people = {}
 	var getretval = function(){
-		$http.get("https://congress.api.sunlightfoundation.com/bills/search?query="+ $scope.query +"&apikey=1872af8ee52349d1a0b1f7e001d53b46").
-		  success(function(data, status, headers, config) {
+		$http.get("https://congress.api.sunlightfoundation.com/bills/search?query="+ $scope.query +"&apikey=1872af8ee52349d1a0b1f7e001d53b46")
+		.success(function(data, status, headers, config) {
 		  	$scope.result = data
 		  	console.log($scope.result.results)
 		  	data.results.forEach(function(d){
 		  		var personname = d['sponsor']['first_name'] + " " + d['sponsor']['last_name']
-		  		if($scope.people.hasOwnProperty(personname)===-1){
+		  		if($scope.people.hasOwnProperty(personname)){
 			  		$scope.people[personname] = []
 		  			$scope.people[personname].push(d)		  						  				  			
 		  		} else {
@@ -32,7 +32,11 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$http', 
 		  	})
 		  	console.log('$scope.people')
 		  	console.log($scope.people)
-		  });
+		  })
+		.error(function(data, status, headers, config) {
+		  	console.log('error')
+		  	$scope.people = [{'name' : 'issa'}, {'name' : 'jhsbfd'}]
+		  })
 	}
 
 }]);
