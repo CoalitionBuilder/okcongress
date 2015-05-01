@@ -42,7 +42,6 @@ cb.controller('MainController', function($scope, $http) {
 	}
 
 
-
 	$scope.search = function(){
 		if(false ===$scope.querying ){
 			$scope.querying = true;
