@@ -20,6 +20,8 @@
 	<script src="bower_components/angular-aria/angular-aria.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
 	<script src="js/vendor/modernizr.js"></script>
 	<script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
@@ -58,8 +60,18 @@
 
     <div class="row">
       <div class="large-12 medium-12 columns">
-        <h2><span ng-hide="people.length < 1">{{people.length}}</span> Congress members who <em>sponsored</em> {{result.bills}} bills related to your search.</h2>
-        <!-- Grid Example -->
+        <div layout="row">
+          <div layout="column" flex="80">
+        <h2>Congress members who <em>sponsored</em> bills related to your search.</h2>
+          </div>
+          <div layout="column" flex="20">
+        <button class="small round button" ng-if="people.length > 0" type="button" ng-csv="getFlats()" csv-header="getHeader()" filename="coalition.csv">Export</button>
+          </div>
+        </div>
+        
+
+
+
           <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
             <div class="callout panel">
               <p>Filter your results</p>
@@ -132,6 +144,5 @@
           </div>
       </div>
     </div>
-	
 </body>
 </html>
