@@ -1,33 +1,127 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 <head>
 	<meta charset="UTF-8">
 	<base href="/">
-
-	<title>OKCongress</title>
-
-	<!-- CSS -->
-	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coalition Builder</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css"> <!-- custom styles -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 
 	<!-- JS -->
-	<script src="libs/angular/angular.min.js"></script>
-	<script src="libs/angular-route/angular-route.min.js"></script>
-
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-material/angular-material.js"></script>
+	<script src="js/vendor/modernizr.js"></script>
+	<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    
 	<!-- ANGULAR CUSTOM -->
 	<script src="js/controllers/MainCtrl.js"></script>
 	<script src="js/appRoutes.js"></script>
 	<script src="js/app.js"></script>
 </head>
-<body ng-app="sampleApp" ng-controller="MainController">
-	<div class="container">
-		
-		
+<body ng-app="cb" ng-controller="MainController">
+<div class="row">
+      <div class="large-12 columns">
+        <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <form>
+          <div class="row">
+            <div class="large-10 columns">
+              <input  type="text" placeholder="Enter your topic" ng-model="query"/>
+            </div>
+            <div class="large-2 columns">
+              <button ng-click="search()" class="small round button">Search</button>
+            </div>
+          </div>
+        </form>
+	    	</div>
+					</div>
+      	</div>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="large-12 medium-12 columns row">
+        <h2>Congress members who <em>sponsored</em> bills related to your search.</h2>
+        <!-- Grid Example -->
+          <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
+            <div class="callout panel">
+              <p>Filter your results</p>
+          <div class="row" >
+            <div class="large-12 medium-12 columns">
+              <label for="party_all"><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label><br />
+              <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" >Democrat</label><br />
+              <label for="party_republican"><input type="radio" ng-model="partyText" value="R" >Republican</label>
+              
+              <hr />
+              <label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''">All</label><br />
+              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" >House of Representatives</label><br />
+              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
+              <hr />
+            	<select ng-model="commissionsText">
+            		<!-- <option ng-model="filterText" value="" >[--select--]</option> -->
+			    <option 
+			            ng-repeat="commission in commissions"
+			            value="{{commission.display}}">
+			      {{commission.display}}
+			    </option>
+			</select>
+              <hr />
+              <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
+            </div>
+          </div>
 
-		<!-- ANGULAR DYNAMIC CONTENT -->
-		<div ng-view></div>
+            </div>
+          </div>
+          <div class="large-8 medium-8 columns" >
+            <div class="person" ng-repeat="p in people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText} | filter:commissionsText">
+              <div class="primary">
+                <div class="name"> 
+                  <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />
+                  <a ng-href="{{p.website}}">{{p.firstname}} {{p.middlename}}  {{p.lastname}}</a>
+                </div>
+                <div class="details">
+                  {{p.title}} - {{p.party}}, {{p.state}} </br>
+                  {{p.phone}}
+                </div>
+              </div>
 
-	</div>
+              <hr class="person-divider" />
+
+              <div class="secondary">
+                <h3>Committees</h3>
+                <ul>
+                  <li ng-repeat="c in p.committeeMembership">{{c}}</li>
+                </ul>
+              </div>
+
+              <div class="secondary">
+                <h3>Bills Supported</h3>
+                <ul>
+                  <li ng-repeat="b in p.billsLong track by $index">{{b}}</li>
+                </ul>
+              </div>
+              
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+      </div>
+    </div>
+	
 </body>
 </html>
