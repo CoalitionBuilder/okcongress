@@ -1,1 +1,58 @@
-body { padding-top:30px; }
+body {
+	font-family: 'Lato', sans-serif;
+}
+
+.person {
+	border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border: 1px solid #ccc;
+	padding: 15px;
+	font-size: 1em;
+}
+
+.avatar {
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+.primary {
+
+}
+
+.secondary {
+	
+}
+
+.name {
+	font-size: 1.75em;
+}
+
+.name a {
+	color: #2073d0;
+	text-decoration: underline;
+}
+
+.name a:hover {
+	color: #154a87;
+}
+
+h3 {
+	margin: 20px 0 0 0;
+	font-size: 1.15em;
+}
+
+ul {
+	padding: 0px 10px 0px 0px;
+	margin: 0px 0px 0px 20px;
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Lato', sans-serif;
+	margin: 30px 0;
+}
+
+h2 {
+	font-size: 1.5em;
+}
