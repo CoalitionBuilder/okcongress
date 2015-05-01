@@ -74,12 +74,12 @@
               <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" >Senate</label>
               <hr />
             	<select ng-model="commissionsText">
-            		<!-- <option ng-model="filterText" value="" >[--select--]</option> -->
-			    <option 
-			            ng-repeat="commission in commissions"
-			            value="{{commission.display}}">
-			      {{commission.display}}
-			    </option>
+            	 	<option value="" >[--select--]</option> 
+				    <option 
+				            ng-repeat="commission in commissions"
+				            value="{{commission.display}}">
+				      {{commission.display}}
+				    </option>
 			</select>
               <hr />
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
