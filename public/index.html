@@ -91,7 +91,7 @@
             	<select ng-model="commissionsText">
             	 	<option value="" >select a committee</option> 
 				    <option 
-				            ng-repeat="commission in commissions"
+				            ng-repeat="commission in commissions| orderBy:'display'"
 				            value="{{commission.display}}">
 				      {{commission.display}}
 				    </option>
