@@ -42,10 +42,6 @@ cb.controller('MainController', function($scope, $http) {
 	}
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> de169f78af8e99602abc285c3f868feae3d9f558
 	$scope.search = function(){
 		if(false ===$scope.querying ){
 			$scope.querying = true;
