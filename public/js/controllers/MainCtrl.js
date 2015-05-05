@@ -42,12 +42,16 @@ cb.controller('MainController', function($scope, $http) {
 	}
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> de169f78af8e99602abc285c3f868feae3d9f558
 	$scope.search = function(){
 		if(false ===$scope.querying ){
 			$scope.querying = true;
 			$http.get("/api/sunlight?query="+ $scope.query)
 			.success(function(data, status, headers, config) {
+				
 				//reset values
 				$scope.commissionsText = '';
 				$scope.chamberText = '';
@@ -57,13 +61,24 @@ cb.controller('MainController', function($scope, $http) {
 			  	console.log($scope.result);
 			  	$scope.people = $scope.result.people;
 			  	$scope.querying = false;
-			  	//$scope.comissions.length = 0;
+			  	//$scope.commissions.length(0);
+			  	//pull out the committees
+			  	var committees = {};
 			  	$scope.people.forEach(function(p){
-			  		p.committeeMembership.forEach(function(c){
-			  			console.log(c)
-			  			$scope.commissions.push({'display':c, 'valueText':c});
-			  		});
+			  		if('undefined' != typeof  p.committeeMembership){
+				  		p.committeeMembership.forEach(function(c){
+				  			committees[c]=true;//this way duplicate committees are avoided. 
+				  			//There may be better ways (and probably are)
+				  		});
+				  	}
 			  	});
+			  	// now for that list of committees put them into an object that is useful for the html
+			  	for (var property in committees) {
+			  	    if (committees.hasOwnProperty(property)) {
+			  	    	$scope.commissions.push({'display':property});
+			  	    }
+			  	}
+			  	
 			  })
 			.error(function(data, status, headers, config) {
 			  	console.log('error');
