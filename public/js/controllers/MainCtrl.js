@@ -5,7 +5,7 @@ cb.controller('MainController', function($scope, $http) {
 
 
 	$scope.querying = false;
-	$scope.query='';
+	$scope.query='your interests';
 
 	$scope.tagline = 'To the moon and back!';	
 	$scope.result = '';
@@ -86,5 +86,14 @@ cb.controller('MainController', function($scope, $http) {
 	};
 
   	$scope.people = [];
+
+	Array.prototype.sum = function (prop) {
+	    var total = 0
+	    for ( var i = 0, _len = this.length; i < _len; i++ ) {
+	        total += this[i][prop]
+	    }
+	    return total
+	}
+
 
 });

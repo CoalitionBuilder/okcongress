@@ -61,10 +61,21 @@
       <div class="large-12 medium-12 columns">
         <div layout="row">
           <div layout="column" flex="80">
-        <h2><span ng-hide="people.length < 1">{{people.length}}</span> Congress members who <em>sponsored</em> {{result.bills}} bills related to your search.</h2>
+        <h2><span ng-hide="filtered.length < 1">
+                    {{filtered.length}}
+            </span> 
+              Congress members <em>sponsored</em> bills related to {{query}}.
+            </h2>
           </div>
           <div layout="column" flex="20">
-        <button class="small round button" ng-if="people.length > 0" type="button" ng-csv="getFlats()" csv-header="getHeader()" filename="coalition.csv">Export</button>
+            <button class="small round button" 
+                    ng-if="people.length > 0" 
+                    type="button" 
+                    ng-csv="getFlats()" 
+                    csv-header="getHeader()" 
+                    filename="coalition.csv">
+                      Export
+            </button>
           </div>
         </div>
         
@@ -106,7 +117,7 @@
             </div>
           </div>
           <div class="large-8 medium-8 columns" >
-            <div class="person" ng-repeat="p in people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText} | filter:commissionsText">
+            <div class="person" ng-repeat="p in filtered = ( people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText} | filter:commissionsText)">
               <div class="primary">
                 <div class="name"> 
                   <img src="https://theunitedstates.io/images/congress/225x275/{{p.bioguide_id}}.jpg" class="avatar" height="100"    width="100" />
