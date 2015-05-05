@@ -135,7 +135,7 @@
                 <h3>Bills Sponsored</h3>
                 <ul >
                   <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}</li>
-                  <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index">{{b}}</li>
+                  <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index"><span ng-if="!b">No Short Name Available</span>{{b}}</li>
                 </ul>
               </div>
               
