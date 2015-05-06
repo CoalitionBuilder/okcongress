@@ -4,8 +4,10 @@ var cb = angular.module('cb', ['ngCsv']);
 cb.controller('MainController', function($scope, $http) {
 
 
+	$scope.pageFirstLoad=true;
 	$scope.querying = false;
-	$scope.query='your interests';
+	$scope.query='';
+	$scope.previousQuery = '';
 
 	$scope.tagline = 'To the moon and back!';	
 	$scope.result = '';
@@ -43,6 +45,8 @@ cb.controller('MainController', function($scope, $http) {
 
 
 	$scope.search = function(){
+		$scope.pageFirstLoad = false;
+		$scope.previousQuery = String($scope.query);
 		if(false ===$scope.querying ){
 			$scope.querying = true;
 			$http.get("/api/sunlight?query="+ $scope.query)
@@ -57,7 +61,7 @@ cb.controller('MainController', function($scope, $http) {
 			  	console.log($scope.result);
 			  	$scope.people = $scope.result.people;
 			  	$scope.querying = false;
-			  	//$scope.commissions.length(0);
+			  	$scope.commissions.length = 0;
 			  	//pull out the committees
 			  	var committees = {};
 			  	$scope.people.forEach(function(p){

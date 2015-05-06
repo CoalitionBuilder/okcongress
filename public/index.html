@@ -35,6 +35,7 @@
   <div class="row" layout="row">
       <div class="large-12 columns">
         <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
+        <h2 style="text-align:center">Search for a topic, policy or interest</h2>
       </div>
     </div>
     
@@ -44,7 +45,7 @@
           <form>
           <div class="row">
             <div class="large-10 columns">
-              <input  type="text" placeholder="Enter your topic" ng-model="query"/>
+              <input  type="text" placeholder="Enter your interests" ng-model="query"/>
             </div>
             <div class="large-2 columns">
               <button ng-click="search()" class="small round button">Search</button>
@@ -61,11 +62,12 @@
       <div class="large-12 medium-12 columns">
         <div layout="row">
           <div layout="column" flex="80">
-        <h2><span ng-hide="filtered.length < 1">
+        <h2 ng-hide="true == pageFirstLoad || true == querying">
                     {{filtered.length}}
-            </span> 
-              Congress members <em>sponsored</em> bills related to {{query}}.
+            
+              Congress members <em>sponsored</em> bills related to {{previousQuery}}.
             </h2>
+            <h2 ng-show="true == querying">Loading... <img id="spinner" ng-src="images/spinner.gif" ></h2>
           </div>
           <div layout="column" flex="20">
             <button class="small round button" 

@@ -62,3 +62,18 @@ h2 {
 .person-divider {
 	margin-bottom: 0px;
 }
+
+/* Darken the placeholder text */
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #000000;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #000000;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #000000;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #000000;
+}
+/* end placeholder text css */
