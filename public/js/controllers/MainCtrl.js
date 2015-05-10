@@ -7,7 +7,7 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 	    $mdDialog.show({
 	      controller: DialogController,
 	      templateUrl: 'views/dialog1.tmpl.html',
-	      targetEvent: ev,
+	      targetEvent: ev
 	    })
 	    .then(function(answer) {
 	      $scope.alert = 'You said the information was "' + answer + '".';
@@ -36,10 +36,10 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 
 	$scope.getHeader = function(){
 		return Object.keys($scope.flatpeople[0])
-	}
+	};
 
 	$scope.getFlats = function(){
-		$scope.flatpeople = []
+		$scope.flatpeople = [];
 		$scope.people.forEach(function(d){
 			var peep = {
 				lastname : d['lastname'],
@@ -48,11 +48,11 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 				party		: d['party'],
 				state		: d['state'],
 				title		: d['title']
-			}
+			};
 			$scope.flatpeople.push(peep)
-		})
+		});
 		return $scope.flatpeople
-	}
+	};
 
 
 	$scope.search = function(){
@@ -78,8 +78,8 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 			  	$scope.people.forEach(function(p){
 			  		if('undefined' != typeof  p.committeeMembership){
 				  		p.committeeMembership.forEach(function(c){
-				  			committees[c]=true;//this way duplicate committees are avoided. 
-				  			//There may be better ways (and probably are)
+							committees[c.split(' - ')[0]]=true;//this way duplicate committees are avoided.
+							//There may be better ways (and probably are)
 				  		});
 				  	}
 			  	});

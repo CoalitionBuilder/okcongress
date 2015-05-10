@@ -91,18 +91,18 @@ var enrich = function(){
 					if(typeof legislators[i].committeeMembership == 'undefined'){
 						legislators[i].committeeMembership = [];
 					}
-					legislators[i].committeeMembership.push(c.name);
+					// add member 'title' to committee. Currently this only applies to Committee Chair
+					if(typeof m.title != 'undefined'){
+						legislators[i].committeeMembership.push(c.name + " - " + m.title);
+					} else {
+						legislators[i].committeeMembership.push(c.name);
+					}
+
 				}
 			}
-			
-//			if(m.committeeMembership == 'undefined'){
-//				m.committeeMembership = [];
-//				console.log("undefined array");
-//			}
-//			m.committeeMembership.push(c.name);
 		});
 	});
-}
+};
 
 enrich();
 var retobj = {};
@@ -146,7 +146,7 @@ var sunlight = function(req, res, page){
 						}
 					} 
 				})
-			})
+			});
 			if((page*50 > returned.count|| page > 30) ){
 				// return the enriched list of legislators
 			    res.json(retobj);
@@ -161,7 +161,7 @@ var sunlight = function(req, res, page){
 		  }
 		  
 		})
-}
+};
 
 router.get('/sunlight', function(req, res){
 	retobj = {};
