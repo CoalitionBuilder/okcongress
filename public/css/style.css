@@ -76,4 +76,13 @@ h2 {
 :-ms-input-placeholder { /* Internet Explorer 10+ */
     color:    #000000;
 }
+
+.dialogdemoBasicUsage .dialogDemo1 {
+  height: 500px; }
+.dialogdemoBasicUsage .dialog-demo-content div {
+  text-align: center; }
+.dialogdemoBasicUsage .md-subheader {
+  background-color: #dcedc8;
+  margin: 0; 
+}
 /* end placeholder text css */

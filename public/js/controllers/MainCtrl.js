@@ -1,9 +1,20 @@
-var cb = angular.module('cb', ['ngCsv']); 
+var cb = angular.module('cb', ['ngCsv', 'ngMaterial']); 
 
 
-cb.controller('MainController', function($scope, $http) {
+cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope, $http, $mdDialog) {
 
-
+	$scope.showAdvanced = function(ev) {
+	    $mdDialog.show({
+	      controller: DialogController,
+	      templateUrl: 'views/dialog1.tmpl.html',
+	      targetEvent: ev,
+	    })
+	    .then(function(answer) {
+	      $scope.alert = 'You said the information was "' + answer + '".';
+	    }, function() {
+	      $scope.alert = 'You cancelled the dialog.';
+	    });
+	  };
 	$scope.pageFirstLoad=true;
 	$scope.querying = false;
 	$scope.query='';
@@ -90,6 +101,22 @@ cb.controller('MainController', function($scope, $http) {
 	};
 
   	$scope.people = [];
+	$scope.$watch('people', function (newValue, oldValue) {
+        if (newValue !== oldValue) $scope.people = newValue;
+    });
+
+}]);
 
 
-});
+function DialogController($scope, $mdDialog) {
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.answer = function(answer) {
+    $mdDialog.hide(answer);
+  };
+}
+

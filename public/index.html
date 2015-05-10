@@ -24,7 +24,8 @@
   <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
 	<script src="js/vendor/modernizr.js"></script>
 	<script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+  <script src="js/foundation.min.js"></script>
+  <script src="js/foundation/foundation.accordion.js"></script>
     
   <!-- ANGULAR CUSTOM -->
   <script src="js/controllers/MainCtrl.js"></script>
@@ -33,58 +34,58 @@
 </head>
 <body ng-app="cb" ng-controller="MainController">
   <div class="row" layout="row">
-      <div class="large-12 columns">
-        <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
-        <h2 style="text-align:center">Search for a topic, policy or interest</h2>
-      </div>
+    <div class="large-12 columns">
+      <h1><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Coalition Builder</h1>
+      <h2 style="text-align:center">Search for a topic, policy or interest</h2>
     </div>
+  </div>
     
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="panel">
-          <form>
-          <div class="row">
-            <div class="large-10 columns">
-              <input  type="text" placeholder="Enter your interests" ng-model="query"/>
-            </div>
-            <div class="large-2 columns">
-              <button ng-click="search()" class="small round button">Search</button>
-            </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+        <form>
+        <div class="row">
+          <div class="large-10 columns">
+            <input  type="text" placeholder="Enter your interests" ng-model="query"/>
           </div>
-        </form>
+          <div class="large-2 columns">
+            <button ng-click="search()" class="small round button">Search</button>
+          </div>
         </div>
-          </div>
+      </form>
+      </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="large-12 medium-12 columns">
-        <div layout="row">
-          <div layout="column" flex="80">
-        <h2 ng-hide="true == pageFirstLoad || true == querying">
-                    {{filtered.length}}
-            
-              Congress members <em>sponsored</em> bills related to {{previousQuery}}.
-            </h2>
-            <h2 ng-show="true == querying">Loading... <img id="spinner" ng-src="images/spinner.gif" ></h2>
-          </div>
-          <div layout="column" flex="20">
-            <button class="small round button" 
-                    ng-if="people.length > 0" 
-                    type="button" 
-                    ng-csv="getFlats()" 
-                    csv-header="getHeader()" 
-                    filename="coalition.csv">
-                      Export
-            </button>
-          </div>
+  <div class="row">
+    <div class="large-12 medium-12 columns">
+      <div layout="row">
+        <div layout="column" flex="80">
+      <h2 ng-hide="true == pageFirstLoad || true == querying">
+                  {{filtered.length}}
+          
+            Congress members <em>sponsored</em> bills related to {{previousQuery}}.
+          </h2>
+          <h2 ng-show="true == querying">Loading... <img id="spinner" ng-src="images/spinner.gif" ></h2>
         </div>
+        <div layout="column" flex="20">
+          <button class="small round button" 
+                  ng-if="people.length > 0" 
+                  type="button" 
+                  ng-csv="getFlats()" 
+                  csv-header="getHeader()" 
+                  filename="coalition.csv">
+                    Export
+          </button>
+        </div>
+      </div>
         
 
-          <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
-            <div class="callout panel">
-              <p>Filter your results</p>
+    <div class="large-4 medium-4 columns" ng-hide="people.length < 1">
+        <div class="callout panel">
+          <p>Filter your results</p>
           <div class="row" >
             <div class="large-12 medium-12 columns">
             	<label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''"> All</label><br />
@@ -100,12 +101,12 @@
               
             	<select ng-model="commissionsText">
             	 	<option value="" >select a committee</option> 
-				    <option 
-				            ng-repeat="commission in commissions| orderBy:'display'"
-				            value="{{commission.display}}">
-				      {{commission.display}}
-				    </option>
-			</select>
+    		    <option 
+    		            ng-repeat="commission in commissions| orderBy:'display'"
+    		            value="{{commission.display}}">
+    		      {{commission.display}}
+    		    </option>
+  	          </select>
               <hr />
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
               <hr />
@@ -115,9 +116,8 @@
               
             </div>
           </div>
-
-            </div>
-          </div>
+        </div>
+      </div>
           <div class="large-8 medium-8 columns" >
             <div class="person" ng-repeat="p in filtered = ( people | filter:filterText | filter:{party: partyText} | filter:{title:chamberText} | filter:commissionsText)">
               <div class="primary">
@@ -143,7 +143,13 @@
               <div class="secondary">
                 <h3>Bills Sponsored</h3>
                 <ul >
-                  <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}</li>
+                  <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}
+                    <div>
+                      <md-button class="md-primary" ng-click="showAdvanced($event)">
+                        Custom Dialog
+                      </md-button>
+                    </div>
+                  </li>
                   <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index"><span ng-if="!b">No Short Name Available</span>{{b}}</li>
                 </ul>
               </div>
@@ -153,5 +159,10 @@
           </div>
       </div>
     </div>
+<script>
+$(document).ready(function(){
+    $(document).foundation();
+});
+</script>
 </body>
 </html>
