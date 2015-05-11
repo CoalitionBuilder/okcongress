@@ -145,12 +145,19 @@
                 <ul >
                   <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}
                     <div>
-                      <md-button class="md-primary" ng-click="showAdvanced($event)">
-                        Custom Dialog
+                      <md-button class="md-primary" ng-click="showAdvanced($event, p, $index)">
+                        More Info
                       </md-button>
                     </div>
                   </li>
-                  <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index"><span ng-if="!b">No Short Name Available</span>{{b}}</li>
+                  <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index">
+                    <span ng-if="!b">No Short Name Available</span>{{b}}
+                    <div>
+                      <md-button class="md-primary" ng-click="showAdvanced($event, p, $index)">
+                        More Info
+                      </md-button>
+                    </div>
+                  </li>
                 </ul>
               </div>
               

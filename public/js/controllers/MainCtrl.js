@@ -3,11 +3,15 @@ var cb = angular.module('cb', ['ngCsv', 'ngMaterial']);
 
 cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope, $http, $mdDialog) {
 
-	$scope.showAdvanced = function(ev) {
+	$scope.showAdvanced = function(ev, b, $index) {
 	    $mdDialog.show({
 	      controller: DialogController,
 	      templateUrl: 'views/dialog1.tmpl.html',
-	      targetEvent: ev
+	      targetEvent: ev,
+	      locals: {
+           bill: b, 
+           index : $index
+          }
 	    })
 	    .then(function(answer) {
 	      $scope.alert = 'You said the information was "' + answer + '".';
@@ -101,14 +105,28 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 	};
 
   	$scope.people = [];
-	$scope.$watch('people', function (newValue, oldValue) {
-        if (newValue !== oldValue) $scope.people = newValue;
-    });
+	// $scope.$watch('filtered', function (newValue, oldValue) {
+ //        if (newValue !== oldValue) $scope.people = newValue;
+ //    });
 
 }]);
 
 
-function DialogController($scope, $mdDialog) {
+function DialogController($scope, $http, $mdDialog, bill, index) {
+  console.log(bill)
+
+$http.get("/api/billinfo?query="+ bill.billsId[index])
+.success(function(data, status, headers, config) {
+		console.log('billinfo results')
+		console.log(data)
+  		$scope.billi = data.data.bills.results[0]
+  })
+.error(function(data, status, headers, config) {
+  	console.log('error');
+  });
+
+  
+
   $scope.hide = function() {
     $mdDialog.hide();
   };
