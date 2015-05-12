@@ -105,36 +105,31 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 	};
 
   	$scope.people = [];
-	// $scope.$watch('filtered', function (newValue, oldValue) {
- //        if (newValue !== oldValue) $scope.people = newValue;
- //    });
-
+  	
 }]);
 
 
 function DialogController($scope, $http, $mdDialog, bill, index) {
-  console.log(bill)
+	console.log(bill)
 
-$http.get("/api/billinfo?query="+ bill.billsId[index])
-.success(function(data, status, headers, config) {
+	$http.get("/api/billinfo?query="+ bill.billsId[index])
+	.success(function(data, status, headers, config) {
 		console.log('billinfo results')
 		console.log(data)
-  		$scope.billi = data.data.bills.results[0]
-  })
-.error(function(data, status, headers, config) {
-  	console.log('error');
-  });
+  		$scope.billi = data.data.bills.results[0];
+    })
+	.error(function(data, status, headers, config) {
+  		console.log('error');
+    });
 
-  
-
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-  $scope.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };
+	$scope.hide = function() {
+	$mdDialog.hide();
+	};
+	$scope.cancel = function() {
+	$mdDialog.cancel();
+	};
+	$scope.answer = function(answer) {
+	$mdDialog.hide(answer);
+	};
 }
 

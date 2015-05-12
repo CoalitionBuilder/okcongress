@@ -81,7 +81,7 @@ var legislators = JSON.parse(fs.readFileSync('legislators.json'));
 var committeeMembership = JSON.parse(fs.readFileSync('committee-membership-current.json'));
 var committees = JSON.parse(fs.readFileSync('committees-current.json'));
 var enrich = function(){
-	console.log(committees)
+	// console.log(committees)
 	committees.forEach(function(c){
 		var members = committeeMembership[c.thomas_id];
 		members.forEach(function(m){
@@ -177,11 +177,11 @@ var getBillInfo = function(req, res, page){
 	console.log('making bill request')
 	request('https://congress.api.sunlightfoundation.com/bills?apikey=1872af8ee52349d1a0b1f7e001d53b46&per_page=50&'+
 			'order=introduced_on&'+
-			'fields=sponsor_id,short_title,official_title&'+//these are the only fields we currently care about a bill. Limiting fields improves response time
+			'fields=sponsor_id,short_title,popular_title,keywords,cosponsors,nicknames,official_title&'+//these are the only fields we currently care about a bill. Limiting fields improves response time
 			'page='+page+
 			'&bill_id='+req.query.query, 
 		function (error, response, body) {
-			console.log('asndkjn')
+			console.log('query success')
 			if (!error && response.statusCode == 200) {
 				//console.log(body) ;// Show the HTML for the Google homepage.
 				var returned = JSON.parse(body);
