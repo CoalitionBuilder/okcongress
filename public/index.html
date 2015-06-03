@@ -88,31 +88,31 @@
           <p>Filter your results</p>
           <div class="row" >
             <div class="large-12 medium-12 columns">
-            	<label for="chamber_all"><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''"> All</label>
-              <label for="chamber_house"><input type="radio" ng-model="chamberText" value="Rep" > House of Representatives</label>
-              <label for="chamber_sen"><input type="radio" ng-model="chamberText" value="Sen" > Senate</label>
+                <label><input type="radio" ng-model="chamberText" value="" ng-init="chamberText=''"> All</label>
+                <label><input type="radio" ng-model="chamberText" value="Rep" > House of Representatives</label>
+                <label><input type="radio" ng-model="chamberText" value="Sen" > Senate</label>
               <hr />
-              <label for="party_all"><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label>
-              <label for="party_democrat"><input type="radio" ng-model="partyText" value="D" > Democrat</label>
-              <label for="party_republican"><input type="radio" ng-model="partyText" value="R" > Republican</label>
+                <label><input type="radio" ng-model="partyText"  value="" ng-init="partyText=''">All</label>
+                <label><input type="radio" ng-model="partyText" value="D" > Democrat</label>
+                <label><input type="radio" ng-model="partyText" value="R" > Republican</label>
               
               <hr />
               
               
-            	<select ng-model="commissionsText">
-            	 	<option value="" >select a committee</option> 
-    		    <option 
-    		            ng-repeat="commission in commissions| orderBy:'display'"
-    		            value="{{commission.display}}">
-    		      {{commission.display}}
-    		    </option>
-  	          </select>
+                <select ng-model="commissionsText">
+                    <option value="" >select a committee</option>
+                <option
+                        ng-repeat="commission in commissions| orderBy:'display'"
+                        value="{{commission.display}}">
+                  {{commission.display}}
+                </option>
+              </select>
               <hr />
               <input  type="text" placeholder="Free Form Filter" ng-model="filterText"/>
               <hr />
               <p>Choose Bill Display Preference</p>
-              <label for="offical_name"><input type="radio" ng-model="billName" value="true" ng-init="billName='true'"> Official Bill Name</label>
-              <label for="short_name"><input type="radio" ng-model="billName" value="false" > Short Name</label>
+              <label><input type="radio" ng-model="billName" value="true" ng-init="billName='true'"> Official Bill Name</label>
+              <label><input type="radio" ng-model="billName" value="false" > Short Name</label>
               
             </div>
           </div>
@@ -145,17 +145,17 @@
                 <ul >
                   <li ng-if="billName=='true'" ng-repeat="b in p.billsLong track by $index">{{b}}
                     <div>
-                      <md-button class="md-primary" ng-click="showAdvanced($event, p, $index)">
+                      <a class="md-primary small" ng-click="showAdvanced($event, p, $index)">
                         More Info
-                      </md-button>
+                      </a>
                     </div>
                   </li>
                   <li  ng-if="billName=='false'" ng-repeat="b in p.billsShort track by $index">
                     <span ng-if="!b">No Short Name Available</span>{{b}}
                     <div>
-                      <md-button class="md-primary" ng-click="showAdvanced($event, p, $index)">
+                      <a class="md-primary small" ng-click="showAdvanced($event, p, $index)">
                         More Info
-                      </md-button>
+                      </a>
                     </div>
                   </li>
                 </ul>
