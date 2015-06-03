@@ -159,7 +159,7 @@ var sunlight = function(req, res, page){
 			}
 			
 		  } else{ // on failure
-			  res.json({message:response.statusCode});
+			  res.json({message:504});
 			  res.end();//exit
 		  }
 		  
@@ -174,14 +174,14 @@ router.get('/sunlight', function(req, res){
 
 var retobj = {};
 var getBillInfo = function(req, res, page){
-	console.log('making bill request')
+	console.log('making bill request');
 	request('https://congress.api.sunlightfoundation.com/bills?apikey=1872af8ee52349d1a0b1f7e001d53b46&per_page=50&'+
 			'order=introduced_on&'+
 			'fields=sponsor_id,short_title,popular_title,keywords,cosponsors,nicknames,official_title&'+//these are the only fields we currently care about a bill. Limiting fields improves response time
 			'page='+page+
 			'&bill_id='+req.query.query, 
 		function (error, response, body) {
-			console.log('query success')
+			console.log('query success');
 			if (!error && response.statusCode == 200) {
 				//console.log(body) ;// Show the HTML for the Google homepage.
 				var returned = JSON.parse(body);

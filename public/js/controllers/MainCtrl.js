@@ -110,12 +110,12 @@ cb.controller('MainController', ['$scope', "$http", '$mdDialog', function($scope
 
 
 function DialogController($scope, $http, $mdDialog, bill, index) {
-	console.log(bill)
+	console.log(bill);
 
 	$http.get("/api/billinfo?query="+ bill.billsId[index])
 	.success(function(data, status, headers, config) {
-		console.log('billinfo results')
-		console.log(data)
+		console.log('billinfo results');
+		console.log(data);
   		$scope.billi = data.data.bills.results[0];
     })
 	.error(function(data, status, headers, config) {
