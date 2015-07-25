@@ -2,6 +2,7 @@ var async = require("async");
 var _ = require("lodash");
 var legislatorManager = require('./legislatorManager');
 var committeeManager = require('./committeeManager');
+// access to the enriched legislator data
 var legislators = [];
 
 exports.test = function(){
@@ -26,16 +27,17 @@ exports.test = function(){
         }
     ], function(error, results) {
         console.log(results);
-        console.log("I choose you: " + results[1].two );
+        console.log("I choose you: " + results[1].result );
     });
 };
 
 exports.refreshLegislatorData = function (){
     async.parallel([
-        function(callback){legislatorManager.getLegislators(callback);},
-        function(callback){committeeManager.getCommittees(callback)}
+        function(callback){legislatorManager.getLegislators(callback);},// result array position 0
+        function(callback){committeeManager.getCommittees(callback)}    // result array position 1
         ],
         function(error, results){
 
         });
 };
+

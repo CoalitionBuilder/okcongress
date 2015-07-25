@@ -3,7 +3,7 @@ var request = require('request');
 /////////////////////////////////////////////////////////////
 // All Legislators
 /////////////////////////////////////////////////////////////
-exports.getLegislators = function(req, res, page){
+exports.getLegislators = function(callback){
     console.log("Fetching legislators");
     request('https://www.govtrack.us/api/v2/role?current=true&limit=6000',
         function (error, response, body) {
@@ -11,9 +11,9 @@ exports.getLegislators = function(req, res, page){
                 console.log('Successfully fetched Legislators');
                 // console.log(body)
                 // res.json({body : body})
-                callback();
+                callback(null, body);
             } else{ // on failure
-                callback({message:response.statusCode});
+                callback({message:response.statusCode}, null);
             }
         })
 };
