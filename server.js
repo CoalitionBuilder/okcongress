@@ -5,9 +5,8 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var fs = require('fs');
 var request = require('request');
-var legislatorManager = require('./legislatorManager.js');
-var committeeManager = require('./committeeManager.js');
-var letterManager = require('./letterManager.js');
+var letterManager = require('./letterManager');
+var serverController = require('./serverController');
 var https = require('https');
 
 var port = process.env.PORT || 8080; // set our port
@@ -44,9 +43,7 @@ router.get('/legislators', function(req,res){
 // Enriching legislator data
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
-
-legislatorManager.getLegislators();
-committeeManager.getCommittees();
+serverController.test();
 letterManager.getLettersByTopic('fracking');
 
 // Old Ways

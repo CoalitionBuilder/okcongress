@@ -3,7 +3,7 @@ var request = require('request');
 /////////////////////////////////////////////////////////////
 // All Committees
 /////////////////////////////////////////////////////////////
-exports.getCommittees = function(req, res, page){
+exports.getCommittees = function(callback){
     console.log("Fetching committees");
 	request('https://www.govtrack.us/api/v2/committee?limit=6000', 
 		function (error, response, body) {
@@ -11,9 +11,9 @@ exports.getCommittees = function(req, res, page){
                 console.log('Successfully fetched Committees');
                 // console.log(body)
                 // res.json({body : body})
+				callback();
 			} else{ // on failure
-			  res.json({message:response.statusCode});
-			  res.end();//exit
-			}		  
+			  callback({message:response.statusCode});
+			}
 		})
 };

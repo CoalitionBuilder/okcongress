@@ -11,9 +11,9 @@ exports.getLegislators = function(req, res, page){
                 console.log('Successfully fetched Legislators');
                 // console.log(body)
                 // res.json({body : body})
+                callback();
             } else{ // on failure
-                res.json({message:response.statusCode});
-                res.end();//exit
+                callback({message:response.statusCode});
             }
         })
 };
