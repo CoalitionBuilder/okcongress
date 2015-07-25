@@ -9,7 +9,8 @@ exports.getCommittees = function(req, res, page){
 		function (error, response, body) {
 			if (!error && response.statusCode == 200) {
                 console.log('Successfully fetched Committees');
-                res.json({body : body})
+                // console.log(body)
+                // res.json({body : body})
 			} else{ // on failure
 			  res.json({message:response.statusCode});
 			  res.end();//exit

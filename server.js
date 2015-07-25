@@ -47,7 +47,7 @@ router.get('/legislators', function(req,res){
 
 legislatorManager.getLegislators();
 committeeManager.getCommittees();
-
+letterManager.getLettersByTopic('fracking');
 
 // Old Ways
 var retobj = {};
