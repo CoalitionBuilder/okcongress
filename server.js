@@ -5,20 +5,15 @@ var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var fs = require('fs');
-
-// configuration ===========================================
-	
-// config files
+var request = require('request');
 var db = require('./config/db');
+var https = require('https');
 
 var port = process.env.PORT || 8080; // set our port
-// mongoose.connect(db.url); // connect to our mongoDB database (commented out after you enter in your own credentials)
 
-// get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json()); // parse application/json 
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
-
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
@@ -28,60 +23,85 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-router.get('/apples', function(req, res) {
-    res.json({ message: 'apples!' });   
-});
-
 var proxyresponse;
-var https = require('https');
-//var options = {
-//	    host: "congress.api.sunlightfoundation.com",
-//	    port: 443,
-//	    path: '/bills/search',
-//	    method: 'GET',
-//	    form:{
-//	    	query:"progress",
-//	    	apikey:"1872af8ee52349d1a0b1f7e001d53b46"
-//	    }	
-//};
 
 var options = {
 	    url: "https://congress.api.sunlightfoundation.com/bills/search",
-	    method: 'GET'//,
-//	    qsParseOptions:{
-//	    	'query':"progress",
-//	    	'apikey':"1872af8ee52349d1a0b1f7e001d53b46"
-//	    }	
+	    method: 'GET'
 };
 
-var request = require('request');
-
-var callback = function(error, response, body) {
-//    console.log("statusCode: ", response.statusCode);
-//    console.log("headers: ", response.headers);
-
-    response.on('data', function(d) {
-    	console.log("Information retrieved");
-
-    	proxyresponse.write(d);
-    	
-    });
-    response.on('end', function () {
-        console.log("All done");
-        proxyresponse.end();
-      });
-};
 
 router.get('/legislators', function(req,res){
 	res.json(legislators);
 	res.end();
 });
 
+
+
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// Enriching legislator data
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////
+// All Legislators
+/////////////////////////////////////////////////////////////
+var retobj = {};
+var getLegislators = function(req, res, page){
+	request('https://www.govtrack.us/api/v2/role?current=true&limit=6000', 
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log('Legislators')
+				console.log(body)
+			} else{ // on failure
+			  res.json({message:response.statusCode});
+			  res.end();//exit
+			}		  
+		})
+};
+
+getLegislators()
+
+
+
+
+/////////////////////////////////////////////////////////////
+// All Committees
+/////////////////////////////////////////////////////////////
+var retobj = {};
+var getCommittees = function(req, res, page){
+	request('https://www.govtrack.us/api/v2/committee?limit=6000', 
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log('Committees')
+				console.log(body)
+			} else{ // on failure
+			  res.json({message:response.statusCode});
+			  res.end();//exit
+			}		  
+		})
+};
+
+getCommittees()
+
+
+/////////////////////////////////////////////////////////////
+// Enriching legislator data
+/////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+// Old Ways
 var legislators = JSON.parse(fs.readFileSync('legislators.json'));
 var committeeMembership = JSON.parse(fs.readFileSync('committee-membership-current.json'));
 var committees = JSON.parse(fs.readFileSync('committees-current.json'));
 var enrich = function(){
-	// console.log(committees)
 	committees.forEach(function(c){
 		var members = committeeMembership[c.thomas_id];
 		members.forEach(function(m){
@@ -91,7 +111,6 @@ var enrich = function(){
 					if(typeof legislators[i].committeeMembership == 'undefined'){
 						legislators[i].committeeMembership = [];
 					}
-					// add member 'title' to committee. Currently this only applies to Committee Chair
 					if(typeof m.title != 'undefined'){
 						legislators[i].committeeMembership.push(c.name + " - " + m.title);
 					} else {
@@ -103,8 +122,12 @@ var enrich = function(){
 		});
 	});
 };
-
 enrich();
+
+
+
+
+
 var retobj = {};
 var sunlight = function(req, res, page){
 	request('https://congress.api.sunlightfoundation.com/bills/search?apikey=1872af8ee52349d1a0b1f7e001d53b46&per_page=50&'+
@@ -114,7 +137,6 @@ var sunlight = function(req, res, page){
 			'&query='+req.query.query, 
 			function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			//console.log(body) ;// Show the HTML for the Google homepage.
 			var returned = JSON.parse(body);
 			retobj.bills = returned.count;
 			var results = returned.results;
@@ -122,8 +144,6 @@ var sunlight = function(req, res, page){
 			console.log("#:" + numberOfBills + ", Count: " + returned.count + ", Page: " + page);
 			
 			results.forEach(function(b){//for each bill
-				// find the sponsor of the bill
-				// super ineffiencent, look over the list of people
 				legislators.forEach(function(l){
 					if(l.bioguide_id === b.sponsor_id){
 						// super super ineffiencent; check to see if we have already found this person
