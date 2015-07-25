@@ -6,6 +6,8 @@ var methodOverride = require('method-override');
 var fs = require('fs');
 var request = require('request');
 var legislatorManager = require('./legislatorManager.js');
+var committeeManager = require('./committeeManager.js');
+var letterManager = require('./letterManager.js');
 var https = require('https');
 
 var port = process.env.PORT || 8080; // set our port
@@ -43,42 +45,8 @@ router.get('/legislators', function(req,res){
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////
-// All Legislators
-/////////////////////////////////////////////////////////////
 legislatorManager.getLegislators();
-
-
-
-
-/////////////////////////////////////////////////////////////
-// All Committees
-/////////////////////////////////////////////////////////////
-var getCommittees = function(req, res, page){
-	request('https://www.govtrack.us/api/v2/committee?limit=6000', 
-		function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				console.log('Committees');
-				console.log(body);
-			} else{ // on failure
-			  res.json({message:response.statusCode});
-			  res.end();//exit
-			}		  
-		})
-};
-
-getCommittees();
-
-
-/////////////////////////////////////////////////////////////
-// Enriching legislator data
-/////////////////////////////////////////////////////////////
-
-
-
-
-
+committeeManager.getCommittees();
 
 
 // Old Ways
