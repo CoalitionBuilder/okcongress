@@ -1,28 +1,28 @@
-<md-dialog aria-label="Mango (Fruit)">
-  <form>
-  <md-dialog-content class="sticky-container" style="padding : 20px;">
+<md-dialog aria-label="Bill Details">
+  <md-dialog-content class="sticky-container" >
     <md-subheader flex="10" class="md-sticky-no-effect">{{billi.short_title}}</md-subheader>
       <p layout="row" layout-align="center center" style="padding : 20px;">
-        {{billi.official_title}}
+        {{billi.official_title}} <br/>
         {{billi.popular_title}}
       </p>
-      <h3  style="margin : 20px;" ng-if="billi">CoSponsors:</h3>
-      <md-content flex layout-fill layout-padding layout="row" layout-align="center center"  style="margin : 20px;">
-        <md-grid-list flex="90" layout="column"
-            md-cols-sm="3" md-cols-md="6" md-cols-gt-md="6"
-            md-row-height-gt-md="1:1" md-row-height="1:1"
-            md-gutter="0px" md-gutter-gt-sm="0px" style="padding: 0px; margin:0px;" >
-
-          <md-grid-tile ng-repeat="key in billi.cosponsors" md-rowspan="1"  md-colspan="1" style="padding: 5px; margin:10px; background: #f5f5f5; text-align: center;" >
+      <h3  style="margin : 20px;" ng-if="billi">Co-Sponsors:</h3>
+      <md-content flex layout-fill layout-padding layout="row"  layout-fill layout-wrap layout-align="start start" ng-scrollbar > <!--layout="row" layout-align="center center"  style="margin : 20px;" -->
+        <div ng-repeat="key in billi.cosponsors" flex>
+          <a href="{{key.legislator.website}}" ><p >&nbsp;&nbsp;{{key.legislator.title}}. {{key.legislator.first_name}} {{key.legislator.middle_name}} {{key.legislator.last_name}}&nbsp;&nbsp;</p></a>
+        </div>
+        <!--
+        <md-list>
+          <md-list-item ng-repeat="key in billi.cosponsors">
             <a href="{{key.legislator.website}}" ><p >{{key.legislator.title}}. {{key.legislator.first_name}} {{key.legislator.middle_name}} {{key.legislator.last_name}}</p></a>
-          </md-grid-tile>
-       </md-grid-list>
+          </md-list-item>
+        </md-list>
+        -->
       </md-content>
   </md-dialog-content>
+
   <div class="md-actions" layout="row">
     <md-button ng-click="answer('useful')" class="md-primary">
-      Cool
+      Close
     </md-button>
   </div>
-  </form>
 </md-dialog>
