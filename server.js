@@ -1,7 +1,6 @@
 // modules =================================================
 var express        = require('express');
 var app            = express();
-var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var fs = require('fs');
@@ -53,8 +52,8 @@ var getLegislators = function(req, res, page){
 	request('https://www.govtrack.us/api/v2/role?current=true&limit=6000', 
 		function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				console.log('Legislators')
-				console.log(body)
+				console.log('Legislators');
+				console.log(body);
 			} else{ // on failure
 			  res.json({message:response.statusCode});
 			  res.end();//exit
@@ -62,7 +61,7 @@ var getLegislators = function(req, res, page){
 		})
 };
 
-getLegislators()
+getLegislators();
 
 
 
@@ -70,13 +69,12 @@ getLegislators()
 /////////////////////////////////////////////////////////////
 // All Committees
 /////////////////////////////////////////////////////////////
-var retobj = {};
 var getCommittees = function(req, res, page){
 	request('https://www.govtrack.us/api/v2/committee?limit=6000', 
 		function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				console.log('Committees')
-				console.log(body)
+				console.log('Committees');
+				console.log(body);
 			} else{ // on failure
 			  res.json({message:response.statusCode});
 			  res.end();//exit
@@ -84,7 +82,7 @@ var getCommittees = function(req, res, page){
 		})
 };
 
-getCommittees()
+getCommittees();
 
 
 /////////////////////////////////////////////////////////////
@@ -128,7 +126,6 @@ enrich();
 
 
 
-var retobj = {};
 var sunlight = function(req, res, page){
 	request('https://congress.api.sunlightfoundation.com/bills/search?apikey=1872af8ee52349d1a0b1f7e001d53b46&per_page=50&'+
 			'order=introduced_on&'+
@@ -192,7 +189,6 @@ router.get('/sunlight', function(req, res){
 	sunlight(req, res, 1);
 });
 
-var retobj = {};
 var getBillInfo = function(req, res, page){
 	console.log('making bill request');
 	request('https://congress.api.sunlightfoundation.com/bills?apikey=1872af8ee52349d1a0b1f7e001d53b46&per_page=50&'+
