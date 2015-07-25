@@ -5,7 +5,7 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var fs = require('fs');
 var request = require('request');
-var db = require('./config/db');
+var legislatorManager = require('./legislatorManager.js');
 var https = require('https');
 
 var port = process.env.PORT || 8080; // set our port
@@ -47,21 +47,7 @@ router.get('/legislators', function(req,res){
 /////////////////////////////////////////////////////////////
 // All Legislators
 /////////////////////////////////////////////////////////////
-var retobj = {};
-var getLegislators = function(req, res, page){
-	request('https://www.govtrack.us/api/v2/role?current=true&limit=6000', 
-		function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				console.log('Legislators');
-				console.log(body);
-			} else{ // on failure
-			  res.json({message:response.statusCode});
-			  res.end();//exit
-			}		  
-		})
-};
-
-getLegislators();
+legislatorManager.getLegislators();
 
 
 
@@ -96,6 +82,7 @@ getCommittees();
 
 
 // Old Ways
+var retobj = {};
 var legislators = JSON.parse(fs.readFileSync('legislators.json'));
 var committeeMembership = JSON.parse(fs.readFileSync('committee-membership-current.json'));
 var committees = JSON.parse(fs.readFileSync('committees-current.json'));
