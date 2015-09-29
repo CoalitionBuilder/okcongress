@@ -6,7 +6,7 @@ var request = require('request');
 
 
 exports.getLettersByTopic = function(topic){
-    console.log("Fetching letters");
+    // console.log("Fetching letters");
     var qry = '{"query":{"query_string":{"query":"'+topic+'","default_operator":"OR"}},"from":0,"size":10,"facets":{"hostLegislator.term.type":{"terms":{"field":"hostLegislator.term.type","size":110,"order":"count"}},"hostLegislator.term.party":{"terms":{"field":"hostLegislator.term.party","size":110,"order":"count"}},"hostLegislator.name.official_full.raw":{"terms":{"field":"hostLegislator.name.official_full.raw","size":110,"order":"count"}},"hostLegislator.term.state":{"terms":{"field":"hostLegislator.term.state","size":150,"order":"count"}}},"highlight":{"fields":{"_all":{"fragment_size":150},"text":{},"pressReleaseText":{},"signatures":{},"recipients":{}}}}'
 
     var options = { 
@@ -17,8 +17,8 @@ exports.getLettersByTopic = function(topic){
 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-
-      console.log(body);
+ 
+      // callback(null, body)
     });
 
 };

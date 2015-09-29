@@ -5,8 +5,8 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var fs = require('fs');
 var request = require('request');
-var letterManager = require('./letterManager');
-var serverController = require('./serverController');
+var letterManager = require('./app/letterManager');
+var serverController = require('./app/serverController');
 var https = require('https');
 
 var port = process.env.PORT || 8080; // set our port
@@ -43,36 +43,9 @@ router.get('/legislators', function(req,res){
 // Enriching legislator data
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
-serverController.test();
+// serverController.test();
+serverController.refreshLegislatorData()
 letterManager.getLettersByTopic('fracking');
-
-// Old Ways
-var retobj = {};
-var legislators = JSON.parse(fs.readFileSync('legislators.json'));
-var committeeMembership = JSON.parse(fs.readFileSync('committee-membership-current.json'));
-var committees = JSON.parse(fs.readFileSync('committees-current.json'));
-var enrich = function(){
-	committees.forEach(function(c){
-		var members = committeeMembership[c.thomas_id];
-		members.forEach(function(m){
-			var i, found;
-			for(i=0, found = false; i< legislators.length && false === found; i++){
-				if(legislators[i].bioguide_id === m.bioguide){
-					if(typeof legislators[i].committeeMembership == 'undefined'){
-						legislators[i].committeeMembership = [];
-					}
-					if(typeof m.title != 'undefined'){
-						legislators[i].committeeMembership.push(c.name + " - " + m.title);
-					} else {
-						legislators[i].committeeMembership.push(c.name);
-					}
-
-				}
-			}
-		});
-	});
-};
-enrich();
 
 
 
@@ -191,7 +164,7 @@ app.get('*', function(req, res){
     res.render('index.html');
 });
 
-console.log('Magic happens on port ' + port); 			// shoutout to the user
+// console.log('Magic happens on port ' + port); 			// shoutout to the user
 
 exports = module.exports = app; 						// expose app
 

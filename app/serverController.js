@@ -2,9 +2,10 @@ var async = require("async");
 var _ = require("lodash");
 var legislatorManager = require('./legislatorManager');
 var committeeManager = require('./committeeManager');
+var committeeMembers = require('./committeeMembers');
+var formCommittees = require('./formCommittees');
 // access to the enriched legislator data
 var legislators = [];
-
 exports.test = function(){
     async.parallel([
         function(callback) {
@@ -32,12 +33,14 @@ exports.test = function(){
 };
 
 exports.refreshLegislatorData = function (){
+    var res = [];
     async.parallel([
         function(callback){legislatorManager.getLegislators(callback);},// result array position 0
-        function(callback){committeeManager.getCommittees(callback)}    // result array position 1
+        function(callback){committeeManager.getCommittees(callback)},    // result array position 1
+        function(callback){committeeMembers.getCommitteeMembers(callback)}    // result array position 1
         ],
         function(error, results){
-
+            formCommittees.enrich(results);
         });
 };
 
