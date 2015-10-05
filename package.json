@@ -2,13 +2,14 @@
   "name": "okcongress",
   "main": "server.js",
   "dependencies": {
-    "express" : "~4.5.1",
-    "body-parser" : "~1.4.2",
-    "method-override" : "~2.0.2",
-    "lodash": ">=3.10.0",
-    "cron": ">=1.0.0",
     "async": ">=1.4.0",
+    "async-q": "^0.2.2",
+    "bluebird": "^2.10.1",
+    "body-parser": "~1.4.2",
+    "cron": ">=1.0.0",
+    "express": "~4.5.1",
+    "lodash": ">=3.10.0",
+    "method-override": "~2.0.2",
     "request": "2.60.0"
   }
 }
-

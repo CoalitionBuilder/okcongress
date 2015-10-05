@@ -11,7 +11,7 @@ exports.getCommittees = function(callback){
                 // console.log('Successfully fetched Committees');
                 // console.log(body)
                 // res.json({body : body})
-                callback(null, body);
+                callback(null, JSON.parse(body));
             } else{ // on failure
                 callback({message:response.statusCode});
             }

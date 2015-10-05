@@ -9,9 +9,8 @@ exports.getLegislators = function(callback){
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // console.log('Successfully fetched Legislators');
-                // console.log(body)
                 // res.json({body : body})
-                callback(null, body);
+                callback(null, JSON.parse(body));
             } else{ // on failure
                 callback({message:response.statusCode}, null);
             }

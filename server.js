@@ -8,8 +8,7 @@ var request = require('request');
 var letterManager = require('./app/letterManager');
 var serverController = require('./app/serverController');
 var https = require('https');
-
-var port = process.env.PORT || 8080; // set our port
+var port = process.env.PORT || 80; // set our port
 
 app.use(bodyParser.json()); // parse application/json 
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
@@ -44,7 +43,8 @@ router.get('/legislators', function(req,res){
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 // serverController.test();
-serverController.refreshLegislatorData()
+var legislators = serverController.promisedRefresh()
+console.log(legislators)
 letterManager.getLettersByTopic('fracking');
 
 
@@ -164,7 +164,7 @@ app.get('*', function(req, res){
     res.render('index.html');
 });
 
-// console.log('Magic happens on port ' + port); 			// shoutout to the user
+console.log('Magic happens on port ' + port); 			// shoutout to the user
 
 exports = module.exports = app; 						// expose app
 

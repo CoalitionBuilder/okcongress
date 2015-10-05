@@ -1,11 +1,13 @@
-var async = require("async");
+var async = require("async-q");
+var Promise = require("bluebird");
+Promise.promisifyAll(async);
 var _ = require("lodash");
 var legislatorManager = require('./legislatorManager');
 var committeeManager = require('./committeeManager');
 var committeeMembers = require('./committeeMembers');
 var formCommittees = require('./formCommittees');
 // access to the enriched legislator data
-var legislators = [];
+exports.legislators = [];
 exports.test = function(){
     async.parallel([
         function(callback) {
@@ -36,11 +38,19 @@ exports.refreshLegislatorData = function (){
     var res = [];
     async.parallel([
         function(callback){legislatorManager.getLegislators(callback);},// result array position 0
-        function(callback){committeeManager.getCommittees(callback)},    // result array position 1
-        function(callback){committeeMembers.getCommitteeMembers(callback)}    // result array position 1
-        ],
-        function(error, results){
-            formCommittees.enrich(results);
-        });
+        function(callback){committeeManager.getCommittees(callback);},    // result array position 1
+        function(callback){committeeMembers.getCommitteeMembers(callback);}    // result array position 1
+        ]).then(function(results){
+            return (formCommittees.enrich(results))            
+        })
 };
+
+
+exports.promisedRefresh = function(){
+    return new Promise(function(resolve, reject) {
+        resolve(exports.refreshLegislatorData())
+    });    
+};
+
+
 
